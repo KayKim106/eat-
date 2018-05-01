@@ -1,0 +1,56 @@
+<div class="wrapper">
+  <h1>Eat-Da-Burger!</h1>
+
+  <div class="burger-photo-div"><img class="burger-photo" src="burger.jpg"></div>
+      
+      {{!-- if the burger is not devoured --}}
+      {{!-- this form will handle the post request --}}
+      <ul class="not-eaten">
+        {{#each burger}}
+          {{#unless devoured}}
+          <form action="api/burgers/{{id}}" method="POST">
+            <li>
+              {{!-- where the burger name is displayed --}}
+              {{burger_name}}
+              <div class="guest-wrapper">   
+                <div class="guest-group">
+                  {{!-- text box for guest name --}}
+                  <input type="text" id="guest-name" name="burgerEater" placeholder="Guest Name">
+                </div>
+                {{!-- submit button to devour and add a guest name --}}
+                <button class="eat-burger" data-id="{{id}}" data-newDevour=" {{devoured}}" id="{{devoured}}" type="submit">
+                  {{#if devoured}}{{else}}DEVOUR IT!{{/if}} 
+                </button>   
+              </div>
+            </li> 
+          </form>   
+          {{/unless}}
+        {{/each}}
+      </ul>
+    
+    {{!-- if the burger is devoured --}}
+    <div class="eaten">
+      <ul class="eaten-burgers">
+        {{#each burger}}
+          {{#if devoured}}
+          <li>
+            {{!-- the burger name with with guest who ate it --}}
+            <p>{{this.burger_name}} , eaten by {{this.guest.guest_name}} </p>
+          </li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </div>
+  
+  {{!-- form to add a burger to the page --}}
+  <div class="form-wrapper">
+    <h2>Add a Burger</h2>
+      <form class="create-form">
+        <div class="form-group">
+          <label for="burger-name">Burger Name:</label>
+          <input type="text" id="burger-name" name="name">
+        </div>
+        <button type="submit" class="add-burger">Add Burger</button>
+      </form>
+  </div>
+</div>
